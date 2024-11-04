@@ -1,0 +1,22 @@
+GITHUB-FOR DEVOPS
+
+git init-basic command to initialize and empty git version control systems repo
+
+-> git status
+
+-test.py is an untracked file when we run "git status". Files are distributed as untracked, staged and tracked
+-when a file is untracked it is not in version control and cannot be rolled back
+-git add filename to add file to staged
+-git rm --cached filename to send file back to unstaged
+-git commit -m "message" to add file from staged to tracked
+-git restore filename to recover tracked files
+
+PUSH CODE FROM LOCAL TO GITHUB
+-git remote add origin https://github.com/ShivamSoni1995/github-for-devops.git
+-PTA xyz
+-git remote -v
+-git push origin master
+
+CLONE AND FORK
+Fork-GitHub to GitHub
+Clone-GitHub to local

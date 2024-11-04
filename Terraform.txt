@@ -1,0 +1,15 @@
+1) Create VPN and public subnet
+terraform init
+terraform plan
+terraform apply
+
+-terraform init #This will initialize the terraform code files
+
+-terraform plan #This will not deploy the resources, it helps you understand and visualize the changes Terraform will make to your infrastructure before actually applying them
+
+-terraform apply #Deploy infrastructure
+
+-terraform destroy #Kill all the resources
+
+
+2). security group

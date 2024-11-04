@@ -1,0 +1,171 @@
+Availability Zone(AZ) is a part of AWS Global infra that has one or more discrete data centres that have redundant power networking and connectivity 
+
+The AWS Well-Architected Framework describes key concepts, design principles, and architectural best practices for designing and running workloads in the cloud
+-Operational excellence: running and monitoring systems and continually improving processes and procedures
+-Security: protecting information and systems
+-Reliability: workloads performing their intended functions and recovering quicky
+-Performance efficiency- structured and streamlined allocation of IT resources
+-Cost optimization- avoiding unnecessary costs
+-Sustainability-minimizing environmental costs
+
+
+EC2 AND ELB (Elastic Cloud Compute and Elastic load balancing)
+
+-Hypervisor: Its function is to create and manage virtual machines(VM's) over physical host computer. Some of its important function are resource allocation, virtual machine management, isolation and security.
+It has 2 types Type-1(bare metal) and Type-2(hosted).
+Type-1 directly sits over hosts hardware without the requirement of any underlying os
+Type-2 these sit on top of host of which provide necessary drivers and interfaces.
+
+Types of EC-2 instances
+-General purpose: provide good balance of resources
+-Compute optimized- compute intensive tasks that can benefit from high performance processors
+-Memory optimized- calculations
+-Storage optimized- high performance for locally stored data
+
+Pricing
+-On demand:
+-Standard reserve: good fit of you know the instance type, size and the AWS region.
+-Convertible reserve: If you need to run instances in different AWS regions or different instance types
+-EC2 Instance savings plan: It gives you discount when you make an hourly spend commitment to an instance family and region for a 1 year or 3 year plan.
+-Spot instances: ideal for workloads with flexible start and end time and which can withstand interruptions
+-Dedicated: physical servers with EC2 instance capacity fully dedicated to your use.
+
+Scaling
+EC2 autoscaling automatically runs up and decommissions instances as per the demand.
+You can specify the min, desired and max capacity
+
+Elastic Load Balancing
+- is the AWS service that automatically distributes incoming application traffic across multiple resources, such as Amazon EC2 instances. 
+
+Amazon simple notification service
+-for publishing messaged to subscribers
+
+Amazon simple queue service
+-send, store and retrieve messages between software components
+
+AWS Lambda(opens in a new tab) is a service that lets you run code without needing to provision or manage servers. 
+
+
+Amazon Elastic Container Service (Amazon ECS) is a highly scalable, high-performance container management system that enables you to run and scale containerized applications on AWS. It supports Docker.
+
+
+Amazon Elastic Kubernetes Service (Amazon EKS)(opens in a new tab) is a fully managed service that you can use to run Kubernetes on AWS. 
+
+
+AWS Fargate(opens in a new tab) is a serverless compute engine for containers. It works with both Amazon ECS and Amazon EKS. 
+
+AWS Cloudfront is a content delivery network(CDN). It speeds up the distribution of content of web pages by caching content of the data in data centres(edge locations) accross the world. CloudFront is commonly used to improve the performance, security, and reliability of web applications, especially for global audiences.
+
+
+Amazon Elastic Beanstalk is a PaaS offered by AWS. It allows developers to deploy their applications without worrying about the underlying infrastructure.
+
+AWS Cloudformation- With AWS CloudFormation, you can treat your infrastructure as code. This means that you can build an environment by writing lines of code instead of using the AWS Management Console to individually provision resources.
+
+Internet Gateway- To allow public traffic from internet to access VPC, you attach an IGW to the VPC
+
+Virtual Private Gateway is used to access private resources of a VPC
+
+Network Access Control Lists(ACL)- It is a virtual firewall that controls inbound and outbound traffic associated with specific IP at subnet level. It is stateless.
+
+SECURITY GROUPS- For additional security EC2 instances have Security Groups. It is stateful
+
+SUBNET
+A subnet is a section of a VPC in which you can group resources based on security or operational needs. Subnets can be public or private. 
+
+Elastic Block Storage(EBS) is a service that provides block level storage volumes that one can use with EC2 instances and it remains available even after the EC2 instance is terminated
+
+AWS S3 is a service that provides object level storage. It stores data as object in buckets. It has unlimited storage and one file can have maximum size of 5TB
+Standard-frequently accessed data stored in min 3 availability zones
+Standard IA-infrequently accessed data but high availability when needed, same as Standard but has lower storage price and higher retrieval price
+One zone IA-stored in one availability zone and has lower storage price than Standard IA
+Intelligent tiering-for data with unknown or changing access patterns and has small monitoring fee
+Glacier instant retrieval-archived data with immediate access within few milliseconds
+Glacier flexible retrieval-archived data to be retrieved within few minutes upto hours
+Glacier deep archive-archived data to be retrieved within upto 12 hours. Has lowest cost for storage
+Outposts-for AWS outpost
+
+Elastic File System(EFS)- scalable file system used by AWS cloud and on premises resources. It grows and shrinks automatically
+
+EBS vs EFS- EBS stores data in single availability zone while EFS is a regional service and stores data across multiple zones
+
+-> DATABASE
+Amazon RDBS- Relational database service which runs of 6 different engines, AWS Aurora, MySQL, Postgre, Maria, Oracle, Microsoft
+
+Amazon Aurora- It is faster than MySQL and Postgre. Ideal for workloads with high availability, replicates 6 copies across 6 zones and backups data in AWS S3.
+
+Amazon DynamoDB- serverless nonsql database which runs on the concept of key-value
+
+Amazon Redshift- data warehousing tool for big data analytics
+
+AWS Data Migration Service(DMS)-allows migration of relational, non relational and other types of data stores.
+DB Migration can be of two types, homogeneous where the source and target databases are of same types and heterogeneous where the source and target databases are of different types where first it needs to be converted through Amazon Schema conversion tool.
+
+-> SECURITY
+
+Shares responsibility model- AWS environment is a collection of parts, AWS is responsible for the security of some parts and the User is responsible for some. Customer is responsible for security in cloud and AWS is responsible for security of cloud.
+
+IAM
+-Allows to create IAM users who by default do not have any permissions. Permissions are to be granted explicitly in the form of IAM policy
+-Certain IAM users can be organized in IAM Groups so common IAM policies can be granted for all.
+-Best practise is to create an IAM user and allow it permission to create new IAM users. Root account should be used for limited number of tasks.
+-MFA adds an extra layer of security. 
+-IAM Role is the best option is one wants temporary permission.
+-AWS Organization- different departments can be created under organizational units.
+SCP(service control policies) can be applied to individual members and Organizational Units OU.
+
+AWS Artifact allows to access AWS compliance reports on demand and review, accept and manage agreements with AWS.	
+
+AWS Shield( Standard and Advanced) provides security to applications against Distributed Denial of Service(DDoS) attacks.
+
+Amazon Inspector helps improve the security and compliance of applications by running automated security assessments.
+
+Amazon Guard Duty is a service that provides intelligent threat detection and continuously monitors for malicious activity and unauthorized behaviour for your AWS resources and infrastructure.
+
+AWS Web Application Firewall(WAF) helps you monitor network requests that come into your web applications.
+
+AWS Key Management Service (AWS KMS)(opens in a new tab) enables you to perform encryption operations through the use of cryptographic keys. 
+
+AWS CloudWatch is a web service that enables you to monitor and manage various resources across AWS and also set alarms.
+
+AWS CloudTrail service allows you to access records of API calls for your account.
+
+AWS CloudTrail Insight is an additional feature and allows you to track unusual API activities
+
+AWS X-Ray is a distributed tracing service provided by AWS that helps developers analyze and debug applications, especially those built with microservices architectures. It allows you to trace requests as they travel through your application, providing insights into performance bottlenecks, errors, and latencies in various components of your application.
+
+AWS Trusted Advisor tracks your environment on a real time basis and gives you recommendations as per AWS best practices in cost, performance, security, fault tolerance, service limits
+
+PRICING
+-Lambda pricing is based upon the number of times the fx is called and the time it takes for them to run
+-EC2 pricing is based upon the time that it runs
+-S3 pricing is based upon storage space consumed
+
+Consolidated billing- used in AWS organizations where combined bill is generated for all the users.
+
+AWS Budget- here you can create budget to utilise your resources accordingly. You can also set custom alerts when usage exceeds a specified limit
+
+AWS SUPPORT
+Basic- free for all, has limited AWS Trusted Advisor Checks and access to AWS Personal Health Dashboard
+Developer- Addition to above Best practise guidance, client side diagnostic tool and building-block architecture support
+Business- Addition to above use case guidance to identify aws resources, all AWS Trusted Advisor Checks and limited support for third party softwares
+Enterprise on Ramp-Addition to above Pool of Technical Account Managers, concierge for billing and tools to monitor health, costs and performance. Cost optimization workshop 1 pr year. 30 mins or less response time
+Enterprise- Addition to above Technical accounts manager, concierge for billing, games and activities, 15 mins or less response time
+
+AWS Marketplace list thousands of software which can be run on AWS 
+
+MIGRATION
+AWS CAF(Cloud Adoption Framework)
+
+AWS Data Migration Service
+
+AWS MGN(App migration service) is an automated lift-and-shift solution. This solution can migrate physical servers and any databases or applications that run on them to EC2 instances in AWS.
+
+Migration strategies has 6 R's
+Rehosting- moving applications without any changes
+Replatforming- involves few cloud optimizations to realise tangible benefits
+Refactoring/Re-architecting- reimagining how an application is architected and developed
+Repurchasing- moving from traditional to software as a service model
+Retaining- retaining critical applications into their source environment
+Retiring-removing apps that are no longer needed'
+
+AWS Config continually assesses, audits and evaluates the configuration and relationships of your aws resources

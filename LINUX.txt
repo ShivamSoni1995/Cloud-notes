@@ -1,0 +1,93 @@
+-"sudo su" to run commands as root user
+-"ls" to show the files in the system
+-"ctrl+D" to save the content of a file
+- ls -l to get detailed list of all the files in the system
+-pwd to get the current directory path
+-ls -a to show all files including hidden
+-sudo find / -type d -name "filename" 2>/dev/null : to search file
+
+
+METHODS TO CREATE FILE-
+1). CAT Method
+-cat >filename to create a new file
+-cat file1 file2 >file3 to concat files to file 3
+-cat file1 >file2 to copy the contents of file1 to file2
+-tac filename to reverse the order of the contents in a file
+
+2) TOUCH method
+-stamp filename to check the timestap metadata of the file
+-touch filename to change the timestamp metadata of the file
+
+3) VI command
+-vi filename
+-press i to enter txt
+-enter text
+-press esc key and :wq to save text and exit, :w to save, :q to exit and :q! without saving
+-to edit file, vi filename, press i and edit text and :wq to save
+
+4) NANO method
+-nano filename
+-enter text, ctrl+x to exit, shft+y to save text and press enter.
+
+
+
+
+METHODS TO CREATE A DIRECTORY-
+-mkdir to make a directory
+-mkdir -p dir1(parent)/dir2(child) to make parent and child directory
+
+COPY DIRECTORY
+-cp dir1(source) dir2(destination)
+
+MOVE/RENAME DIRECTORY
+-mv dir1(source/old name) dir2(destination/new name)
+
+REMOVE DIRECTORY
+-rmdir to remove specified directory
+-rmdir -p dir1/dir2 to remove both parent and child directory
+-rm -rf to remove even non empty file and directory
+-rm -rp removes non empty directories including parent and sub directories
+
+
+TREE COMMAND(to check hierarchy)
+-install tree, yum install tree -y
+
+Grep command- to find a [articular word inside directory/file
+-grep word directory
+
+Sort command(to sort file content in alphabetical order)
+-sort filename
+
+Hostname command(to get ip address and region DNS)
+-hostname -i to only get ip address
+-ifconfig to get all network details
+
+-cat /etc/os-release to get the os details
+
+APACHE SERVER
+-yum install httpd -y
+-service httpd start
+-service httpd status
+-yum remove httpd -y
+
+Which command can be used to check wether a file/directory is present
+-which filename/directory
+
+Echo-It is like print function that prints on the console and can also be used to add content in a fiile
+-echo "content" >filename
+-echo >filename to delete content inside the file
+
+Creat user
+-useradd username
+-cat /etc/passwd press enter to see the user
+-groupadd groupname
+-cat /etc/group press enter to see the created group
+-gpasswd -d username groupname to add a user in the group(needs to be an existing username)
+-gpasswd -m username1,username2 groupname to add multiple ussers to a ggroup
+
+To create softlink/shortcut
+-ln -s file1 softfile1
+-ln file2 backupfile2 to create hardlink
+
+To archive multiple files into a single file
+-

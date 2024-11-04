@@ -1,0 +1,98 @@
+SWITCH
+-It facilitates the communication between host in the same network
+-It is an L2 device hence focuses on only the L2 header which consists of the MAC address
+-They use and maintain MAC address table which has the switch ports connected with diffrent hosts MAC
+-They perform 3 action, learn, flood and forward
+-Learn-It updates table with switch port and source MAC address
+-Flood- It duplicates data frame and sends it out of all ports and only the recipient host will accept the data as it corresponds with the correct MAC address
+-Forward- As data keeps passing the switch keeps updating the MAC address table
+
+-Broadcast is a data frame where data is to be delivered to all the hosts on the same network, it has FFFF.FFFF.FFFF as destination mac addres
+
+Broadcast frame vs unicast frame. 
+-Broadcast frames are always flooded and are not initiated by the switch
+-Unicast frames are ocassionally flooded by the switch when the source MAC address in not available in the MAC table
+
+VLAN-virtual local area network
+-It divides the switch in independent isolated groups
+-It allows switch to perform learn, flood and forward functions in isolated vlans
+-Same learn, flood and forward operations will be performed when data passess through multiple switches
+
+
+
+ROUTERS
+-routers have their own ip and mac address
+-they facilitate data transfer between different networks
+
+NETWORKING PROTOCOLS
+-It is a set of rules and messages that from an internet standard
+ARP-address resolution protocol
+FTP- File transfer protocol
+SMTP- Simple mail transfer protocol
+HTTP-Hyper text transfer protocol, to exchange html
+SSL-Secure sockets layer
+TLS-Transport layer security
+HTTPS- HTTP secured by SSL/TLS tunnel
+DNS- Domain name system converts the domain name, mail address into ip address. When you make a request for a website, the host first connects with the DMS server to get the ip address from the domain name, then connect with the concerned ip address website.
+
+Any host requires 4 elements for internet connectivity
+-IP address of the host
+-Subnet Mask- to define the size of the local network
+-Default gateway(router ip address)
+-DNS server IP address
+
+DHCP-Dynamic host configuration protocol. The DHCP server provides all the above 4 elements when a host is connected to a new network
+
+
+
+VPC-Virtual Private Cloud
+-It is a logically isolated part of a public cloud in which one can launch and manage resources like VM, databases and storage.
+Its features are
+-Isolation
+-Subnets
+-Routing and gateways
+-Security
+-Elasticity
+
+Subnetting- It involves dividing the VPC's IP address into smaller, more manageable segments called subnets
+-Subnet mask: is a 32-bit number that is used in conjunction with an IP address to divide a network into subnetworks (subnets). It helps determine which portion of the IP address refers to the network and which portion refers to the host (the individual device within that network).
+IP Address Structure: An IP address is made up of four octets (or bytes), each containing 8 bits, totaling 32 bits (e.g., 192.168.1.10).
+Subnet Mask Structure: Like an IP address, a subnet mask is also made up of four octets (e.g., 255.255.255.0).
+The 1 bits in the subnet mask correspond to the newtowk portion of the IP address i.e: 192.168.1 is the network, 10 is the host
+
+CIDR notation- It determines the number of 1 in the subnet mask. 255.255.255.0 has 24 '1s', hence the IP address can ber written as 192.168.1.10/24
+
+PUBLIC VS PRIVATE SUBNET
+It can also be divided into public subnet and private subnet
+Security: You can isolate different types of resources (e.g., web servers in public subnets and databases in private subnets).
+Organization: Subnets help you logically organize your resources within a VPC.
+Control: Subnetting allows finer control over traffic flow, both within the VPC and between the VPC and external networks.
+
+
+ROUTING IN VPC 
+-It refers to the process of determining how the network flows inside vpc, to the internet or any other vpc.
+-A route table is a set of rules, called routes that determine where network traffic is directed. Each subnet in a vpc is associate with a route table. A VPC already comes with a main route table
+- Routing table consists of destination and target. Destination can be anywhere or a particular ip address. 
+-Internet gateway- public subnet needs access to internet
+
+REMOTE WORKERS- CLIENT VPN ENDPOINT
+It is a key component of a Virtual Private Network (VPN) designed to allow remote workers to securely connect to an organization's internal resources (such as applications, databases, and file servers) over the internet. It essentially acts as the gateway for remote devices, ensuring secure, encrypted communication between remote clients and the corporate network.
+Client VPN Endpoint-
+This is a managed VPN server provided by AWS (or another provider) that enables users to connect securely to the network.
+It provides encrypted connection using TLS
+
+CORPORATE DATA CENTRE CONNECTION-VIRTUAL GATEWAY(VGW)
+It refers to the network component used to securely connect an organization's on-premises data center (corporate data center) to a Virtual Private Cloud (VPC) in AWS. The VGW is crucial for hybrid cloud architectures, where businesses need their on-premises resources to communicate with cloud resources seamlessly.
+There are two primary ways to establish such connections:
+-Site-to-Site VPN: Secure, encrypted connection over the internet.
+-AWS Direct Connect: Dedicated physical connection providing higher bandwidth and lower latency than a VPN.
+
+VPS PEERING
+It is a networking connection between two Virtual Private Clouds (VPCs) that enables communication between them as if they were part of the same network. This connection allows the VPCs to exchange traffic using private IP addresses, without going through the public internet or VPN, making it secure and cost-effective.
+
+AWS Transit Gateway is a highly scalable and central network hub service that connects multiple VPCs, on-premises networks, and even other AWS accounts. It simplifies network management by acting as a central router that enables transitive routing between your VPCs and on-premises environments without requiring multiple VPC peering connections.
+
+
+VPC Endpoints in AWS allow you to privately connect your Virtual Private Cloud (VPC) to supported AWS services and VPC endpoint services without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect. There are two types
+-VPC Endpoint(Gateway): Gateway Endpoints provide private access to certain AWS services by adding an entry to your VPC route table, allowing traffic to be routed to the service through a gateway endpoint. Supportted services are S3 and DynamoDB
+-VPC Endpoint(Interface): Interface Endpoints create an Elastic Network Interface (ENI) in a specific VPC subnet, allowing you to access many AWS services (not limited to S3 or DynamoDB) privately via private IP addresses

@@ -1,0 +1,40 @@
+Components of SQL
+ ->Data definition language-used for defining and modifying the db schema like CREATE, ALTER, DROP, TRUNCATE.
+ ->Data manipulation language-used for manipulating data within DB like SELECT, INSERT, UPDATE, DELETE
+ ->Data control language-used for controlling access to data within DB like GRANT Aand REVOKE
+ ->Transactional control language-used for managing transactions within DB like COMMIT, ROLLBACK, SAVEPOINT
+ ->Data query language-for quering data within DB like SELECT
+
+Filtering data with WHERE clause (AND, OR, IN, BETWEEN):
+-SELECT * FROM actor WHERE actor_id="1";
+-SELECT * FROM actor WHERE actor_id="1" AND first_name="GUINESS";
+-SELECT * FROM actor WHERE actor_id="1" OR first_name="GUINESS";
+-SELECT * FROM actor WHERE first_name IN ("GUINESS", "DAVIS");
+-SELECT * FROM actor WHERE actor_id BETWEEN 1 AND 10;
+-SELECT * FROM Department WHERE Department IS NOT ("Engineering");
+-LIMIT is used to limit the number of data retrieved.
+
+Create Table
+-CREATE TABLE Table_Name (
+column_1 dataype
+);
+
+To add a column to an existing table
+- ALTER TABLE tablename
+ADD column_name dta_type;
+
+
+To add data in columns
+-INSERT INTO Table_name (column1, column2)
+VALUES
+(value1, value2, value3);
+
+
+
+To update data
+-UPDATE Table_Name SET column_1 = value1 WHERE condition;
+
+To retrieve and sort the data
+-SELECT * FROM ECommerce ORDER BY Price ASC; (It will retirve and sort the data in ascending order, DESC for descending order)
+
+Constraints: unique, primary key, not null, foreign key, default 

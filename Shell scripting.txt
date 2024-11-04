@@ -1,0 +1,13 @@
+1. what is bash
+2. Simple commands
+3. First script
+4. Permissions
+5. Varibales
+6. User inputs and arguments
+7. If else
+
+nano filename.sh
+bash filename.sh
+
+change permissions
+chmod 777 filename.sh
