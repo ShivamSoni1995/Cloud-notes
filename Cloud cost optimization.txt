@@ -1,0 +1,10 @@
+1. Billing dashboard
+2. Cost management
+
+
+TOOLS
+1. AWS Cost Explorer: It is a cost visualization tool that allows you to view and analyze your AWS spendings across various services and time period. It allows to analyze cost, forecast cost and custom reports
+2. AWS Budgets: It is a tool for setting up custom cost and usage budgets and also set alerts for overspending budgets. It allows budgeting and alerts, usage and cost budgets, RI and Savings Plan tracking.
+3. AWS Trusted Advisor: It is a tool that provides real time best-practices and recommendations including cost saving advices. It identifies underutilized resources which can be downsized, terminated or optimized. Also gives recommendations for optimizing RI and savings plan 
+4. AWS Saving Plans and Reserved Instances: It offers great discounts on computing resources in exchange for committed used for a fixed period of time
+5. 
