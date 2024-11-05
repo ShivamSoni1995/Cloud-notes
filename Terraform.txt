@@ -13,3 +13,20 @@ terraform apply
 
 
 2). security group
+
+BASIC FILE DIRECTORY IN TERRAFORM
+
+1. main.tf
+Defines core resources for the environment by referencing the modules from central repository. Each module is tagged to ensure that a specific version is used
+
+2. variables.tf
+Declares input variables like vpc cidr, instance type etc
+
+3. provider.tf
+Configures the cloud provider and backend for remote state storage, which tracks deployed resources.
+
+4. outputs.tf
+Defines output values making it easy to retrieve information like IP address or resource IDs
+
+5. dev.tfvars
+Environment specific variables
