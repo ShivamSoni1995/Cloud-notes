@@ -30,3 +30,17 @@ Defines output values making it easy to retrieve information like IP address or 
 
 5. dev.tfvars
 Environment specific variables
+
+Basic Resource Types
+1. S3
+2. VPC
+3. Security group: Ingress and Egress
+resource "aws_security_group_rule" "name" {
+  type = "ingress/egress"
+  from_port = ""
+  to_port = ""
+  protocol = "tcp/-1"
+  cidr_blocks = [""]
+  
+4. EC2
+5. Elastic IP
