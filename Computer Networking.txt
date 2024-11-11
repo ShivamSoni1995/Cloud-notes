@@ -96,3 +96,158 @@ AWS Transit Gateway is a highly scalable and central network hub service that co
 VPC Endpoints in AWS allow you to privately connect your Virtual Private Cloud (VPC) to supported AWS services and VPC endpoint services without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect. There are two types
 -VPC Endpoint(Gateway): Gateway Endpoints provide private access to certain AWS services by adding an entry to your VPC route table, allowing traffic to be routed to the service through a gateway endpoint. Supportted services are S3 and DynamoDB
 -VPC Endpoint(Interface): Interface Endpoints create an Elastic Network Interface (ENI) in a specific VPC subnet, allowing you to access many AWS services (not limited to S3 or DynamoDB) privately via private IP addresses
+
+
+Interview Questions
+
+Core Networking Concepts
+
+1. Basics of Networking  
+Q.1a What is an IP address, and what is the difference between IPv4 and IPv6?
+ipv4 is 32 bit with dotted decimal format and four segments while ipv6 is 128 bit hexadecimal format separated by colon with 8 segments. ipv6 provides more unique ip addresses and had added security and also add routing efficiency
+
+Q.1b Explain the OSI model and its layers.
+The Open System Interconnection model is a conceptual framework that conceptualizes the functioning of a telecom or network system in 7 distinct layers
+a. Physical- transmission of binary data over physical aspect of network
+b. Data link- divides data into frames and manages mac address. Eg: wifi, switches
+c. Network- determines best path for data to reach its destination using IP addressing eg: internet protocol ipv4 and ipv6
+d. Transport- Manages data segmentation, flow correction and error detection eg: TCP and UDP
+e. Session- Manages sessions between application on different devices
+f. Presentation- Handles data encryption, compression and translation eg: SSL/TLS encryption
+g. Application- Acts as interface between user and network eg: http, dns
+
+Q. 1c How do TCP and UDP differ, and when would you use each?
+They are the two primary protocols used for transporting data over network. Both operate at Transport Layer 4 of the OSI model
+TCP(Transmission Control Protocol)-used for highly reliable and accurate applications where minor delays are acceptable eg: webpages http/https, email SMTP, remote sessions
+UDP(User datagram protocol)-used where speed and efficiency are prioritized over reliability eg: streaming services, online gaming
+
+2. Subnets and CIDR  
+Q. 2a What is a subnet, and why do we use it?
+A subnet (short for subnetwork) is a segmented part of a larger network, specifically designed to organize and partition IP addresses within a network. 
+Improved network organization and scalability
+Enhanced security
+Optimized network performance
+Efficient IP address management
+eg: public subnet for webpage and private subnet for database servers
+
+Q. 2b Explain CIDR notation. How would you calculate the range of IPs in a given CIDR block?
+
+Q. 2c How would you design subnets for a highly available application across multiple availability zones?
+Minimum two availability zones are required for a highly available application. 
+Public and private subnets in both the AZ1 and AZ2.
+Attach a route table that direct to Internet gateway for public subnet
+Attach a route table with a default routing towards a NAT gateway in corresponding public subnet so that private subnet has outbound internet access
+Deploy application Load balancer
+Configure security group and ACL
+
+
+AWS Networking Services
+
+
+1. VPC (Virtual Private Cloud)  
+
+Q. 1a What is a VPC, and why is it essential in AWS?
+A Virtual Private Cloud is an isolated, customizable network within AWS that enable you to launch resources in a virtual network. It is like having a private network in the cloud.
+Enhanced security
+Customizable network configuration like complete control over ip ranges, subnetting and routing
+High availability 
+Hybrid cloud connectivity with on premises resources through VPN or AWS Direct Connect
+Scalability and flexibility
+Compliance and regulatory
+
+Q. 1b How would you set up a secure VPC, and what components are involved?
+select vpc cidr block
+create private and public subnet in multiple AZ for high availability
+Attach internet gateway for internet access in public subnet
+Create a NAt gateway for outbound internet access by private subnet
+Setup route tables
+Implement security group at instance level
+Setup NACL(network access control list)
+Use VPC endpoints for private connection to AWS services like S3, DynamoDB
+Enable flow logs for monitoring
+
+Q. 1c Explain the purpose of route tables, internet gateways, and NAT gateways within a VPC.
+
+2. Security Groups and Network ACLs
+
+Q. 2a What is the difference between a security group and a network ACL?
+Both are used to control the flow of inbound and outbound traffic
+SG works at instance level and NACL works at subnet level
+SG is stateful means if inbound is allowed then outbound rule is also created the same
+NACL is stateless means rules for inbound and outbound needs to be created separately
+SG permits only "allow" rule while NACL permits both "allow" and "deny" rule
+
+Q. 2b How would you restrict access to an EC2 instance using a security group?
+TCP 22 from your ip
+TCP 80 http from all or or restrict to specific ip's
+TCP 443 https from all or restrict to specific ip's
+
+Q. 2c How do you prioritize rules in security groups versus network ACLs?
+
+3. VPC Peering and Transit Gateway  
+What is VPC peering, and when would you use it?
+How does Transit Gateway differ from VPC peering, and what are the benefits of using it?
+
+4. Elastic Load Balancing (ELB)  
+What is the purpose of an Elastic Load Balancer in AWS?
+How does ELB distribute traffic across multiple instances?
+Explain the differences between Application Load Balancer, Network Load Balancer, and Classic Load Balancer.
+
+5. Direct Connect and VPN  
+What are the differences between AWS Direct Connect and a Site-to-Site VPN?
+When would you choose Direct Connect over VPN?
+How would you set up a Site-to-Site VPN connection to AWS?
+
+6. Route 53  
+What is Amazon Route 53, and how does it manage DNS?
+Explain the types of routing policies in Route 53 (simple, weighted, failover, geolocation).
+How would you configure Route 53 to handle failover between AWS regions?
+
+ Monitoring and Troubleshooting
+1. CloudWatch and Alarms  
+What is Amazon CloudWatch, and how does it help in monitoring AWS resources?
+How do you set up CloudWatch alarms for network metrics like traffic and latency?
+
+2. Troubleshooting Connectivity Issues  
+How would you troubleshoot an EC2 instance that’s unable to connect to the internet?
+Explain how you would diagnose latency issues in a VPC peering connection.
+What steps would you take if traffic isn’t reaching your application behind an ELB?
+
+3. AWS VPC Flow Logs  
+What are VPC Flow Logs, and how do they help in troubleshooting?
+How would you configure VPC Flow Logs for a specific subnet?
+
+ AWS Security and Best Practices
+1. IAM and Network Security  
+How would you secure access to your VPC resources?
+Explain how you would restrict users to access specific networking resources within AWS.
+
+2. Security Groups Best Practices  
+What are some best practices for setting up security groups?
+How do you manage security groups in a dynamic environment?
+
+ Scenario-Based Questions
+1. Design and Architecture  
+Q. 1a Describe how you would design a VPC for a multi-tier application with web, application, and database layers.
+
+Q. 1b How would you implement disaster recovery for a critical networking application in AWS?
+Define the DR strategy and RTO/RPO requirements, which are
+Backup and restore
+Pilot Light
+Warm Standby
+Multi-region active-active
+
+2. Troubleshooting Scenarios  
+An EC2 instance in a private subnet needs to access the internet. How would you configure this setup?
+Traffic is not reaching your application hosted on EC2 through an Application Load Balancer. Walk me through your troubleshooting steps.
+
+ General Cloud Knowledge
+1. AWS Global Infrastructure  
+Explain AWS regions and availability zones. How do they relate to each other?
+What is an edge location, and how does AWS use it?
+
+2. Cost Optimization  
+How would you optimize costs for an application that requires a high amount of inbound traffic?
+What cost-control tools would you use to monitor network-related expenses?
+
+Reviewing these areas will help you prepare for both technical and scenario-based questions on AWS cloud networking. Let me know if you'd like more details on any specific topic!
