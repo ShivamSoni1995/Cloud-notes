@@ -1,0 +1,74 @@
+install Grafana on ubuntu
+1. sudo apt-get install -y apt-transport-https software-properties-common wget
+2. sudo mkdir -p /etc/apt/keyrings/
+wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+3. echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+4. echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com beta main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+5. # Updates the list of available packages
+sudo apt-get update
+6. # Installs the latest OSS release:
+sudo apt-get install Grafana
+7. # Installs the latest Enterprise release:
+sudo apt-get install grafana-enterprise
+
+
+or your can install docker and pull docker image
+
+1. # Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo docker run hello-world
+
+4. sudo docker pull grafana/grafana
+5. sudo docker run -d -p 3000:3000 --name=grafana grafana/grafana
+
+
+
+
+IAM ROLE FOR GRAFANA WITH CLOUDWATCH POLICY
+1. create a policy and attach it to a new user. download access id and secret access key
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:ListMetrics",
+                "cloudwatch:GetMetricData",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:DescribeAlarms",
+		"logs:DescribeLogGroups",
+      		"logs:DescribeLogStreams",
+        	"logs:GetLogEvents"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+2. go to Grafana, add data source 
+
+
+-> Create dashboards for specific services
+-> Set alerts
+
+
+--------------------------*************************************----------------------------------------
+
+
+
+Cloudwatch agent: The CloudWatch Agent is a software package that runs on your servers, collecting and sending metrics, logs, and traces to Amazon CloudWatch for monitoring and storage, enabling insights into your infrastructure and applications
+
+Servers/EC2 instances require a specific IAM role with *CloudWatchAgentServerPolicy* polic attached

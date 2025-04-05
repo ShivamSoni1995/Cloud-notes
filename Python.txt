@@ -1,0 +1,9 @@
+1. Datatypes
+lists: ordered, mutable collection of items
+tuples: ordered, immutable collection of items
+dictionary: a collection of key value pairs
+set: an unordered collection of unique elements
+
+2. Keywords and variables
+
+3. Functions, modules and packages

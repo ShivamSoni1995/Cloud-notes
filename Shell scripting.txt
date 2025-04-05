@@ -6,8 +6,228 @@
 6. User inputs and arguments
 7. If else
 
-nano filename.sh
-bash filename.sh
+Good practices:
+1. set -x #debug mode
+2. Mention metadata in comments before script
 
 change permissions
 chmod 777 filename.sh
+
+  IMPORTANT SCENARIO BASED QUESTIONS  
+
+1. Shell Script to Find and Delete Files Older Than 30 Days  
+
+#!/bin/bash
+TARGET_DIR="/path/to/directory"
+find "$TARGET_DIR" -type f -mtime +30 -exec rm -f {} \;
+echo "Files older than 30 days in $TARGET_DIR have been deleted."
+
+
+2. Disk Usage Monitoring Script  
+
+#!/bin/bash
+LOG_FILE="/var/log/disk_usage.log"
+THRESHOLD=80
+EMAIL="admin@example.com"
+
+DISK_USAGE=$(df -h / | grep '/' | awk '{print $5}' | sed 's/%//')
+
+if [ "$DISK_USAGE" -gt "$THRESHOLD" ]; then
+    echo "$(date): Disk usage is at $DISK_USAGE%" >> "$LOG_FILE"
+    echo "Disk usage on server exceeds $THRESHOLD%. Current usage: $DISK_USAGE%" | mail -s "Disk Usage Alert" "$EMAIL"
+fi
+
+
+3. Rename `.txt` Files by Appending the Current Date  
+
+#!/bin/bash
+TARGET_DIR="/path/to/directory"
+DATE=$(date +%Y-%m-%d)
+
+for file in "$TARGET_DIR"/*.txt; do
+    [ -e "$file" ] || continue
+    mv "$file" "${file%.txt}-$DATE.txt"
+done
+
+echo "Renamed all .txt files in $TARGET_DIR by appending $DATE."
+
+
+4. Check and Restart a Service  
+
+#!/bin/bash
+SERVICE="nginx"
+LOG_FILE="/var/log/service_monitor.log"
+
+if ! systemctl is-active --quiet "$SERVICE"; then
+    echo "$(date): $SERVICE is not running. Restarting now..." >> "$LOG_FILE"
+    systemctl restart "$SERVICE"
+    echo "$(date): $SERVICE restarted." >> "$LOG_FILE"
+fi
+
+
+5. CPU and Memory Usage Monitoring Script  
+
+#!/bin/bash
+LOG_FILE="/var/log/resource_monitor.log"
+CPU_THRESHOLD=90
+MEM_THRESHOLD=75
+
+while true; do
+    CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}')
+    MEM_USAGE=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
+
+    if (( $(echo "$CPU_USAGE > $CPU_THRESHOLD" | bc -l) )); then
+        echo "$(date): High CPU usage: $CPU_USAGE%" >> "$LOG_FILE"
+    fi
+
+    if (( $(echo "$MEM_USAGE > $MEM_THRESHOLD" | bc -l) )); then
+        echo "$(date): High memory usage: $MEM_USAGE%" >> "$LOG_FILE"
+    fi
+
+    sleep 60
+done
+
+
+6. Backup and Compress Directory with cronjob every midnight
+
+#!/bin/bash
+SOURCE_DIR="/path/to/directory"
+BACKUP_DIR="/path/to/backup"
+DATE=$(date +%Y-%m-%d)
+
+tar -czf "$BACKUP_DIR/backup-$DATE.tar.gz" "$SOURCE_DIR"
+
+echo "Backup of $SOURCE_DIR created at $BACKUP_DIR/backup-$DATE.tar.gz"
+
+make file executable: chmod +x backup.sh	
+open crontab editor: crontab -e
+add code: "0 0 * * * /path/to/backup.sh"
+
+
+7. Website Availability Check  
+
+#!/bin/bash
+WEBSITES=("https://example.com" "https://another-site.com")
+LOG_FILE="/var/log/website_monitor.log"
+EMAIL="admin@example.com"
+
+for SITE in "${WEBSITES[@]}"; do
+    if ! curl -s --head "$SITE" | grep "200 OK" > /dev/null; then
+        echo "$(date): $SITE is unreachable." >> "$LOG_FILE"
+        echo "$SITE is unreachable" | mail -s "Website Alert" "$EMAIL"
+    fi
+done
+```
+
+---
+
+8. Python Script to List S3 Buckets and Sizes  
+
+import boto3
+
+s3 = boto3.client('s3')
+
+def list_buckets_and_sizes():
+    buckets = s3.list_buckets()["Buckets"]
+    for bucket in buckets:
+        bucket_name = bucket["Name"]
+        print(f"Bucket: {bucket_name}")
+        size = 0
+        for obj in boto3.resource('s3').Bucket(bucket_name).objects.all():
+            size += obj.size
+        print(f"Size: {size / (1024    2):.2f} MB\n")
+
+if __name__ == "__main__":
+    list_buckets_and_sizes()
+```
+
+---
+
+9. EC2 Instance Scheduler 
+
+#!/bin/bash
+INSTANCE_ID="i-xxxxxxxxxxxx"
+ACTION=$1
+REGION="us-east-1"
+
+if [ "$ACTION" == "start" ]; then
+    aws ec2 start-instances --instance-ids "$INSTANCE_ID" --region "$REGION"
+    echo "Started instance $INSTANCE_ID"
+elif [ "$ACTION" == "stop" ]; then
+    aws ec2 stop-instances --instance-ids "$INSTANCE_ID" --region "$REGION"
+    echo "Stopped instance $INSTANCE_ID"
+else
+    echo "Usage: $0 {start|stop}"
+fi
+```
+  Cron Jobs  :
+- Start: `0 8 * * * /path/to/ec2_scheduler.sh start`
+- Stop: `0 20 * * * /path/to/ec2_scheduler.sh stop`
+
+---
+
+10. Monitor Directory and Delete Files Larger Than 100 MB  
+
+#!/bin/bash
+MONITOR_DIR="/path/to/directory"
+LOG_FILE="/var/log/large_file_monitor.log"
+
+find "$MONITOR_DIR" -type f -size +100M -exec rm -f {} \; -exec echo "$(date): Deleted {}" >> "$LOG_FILE" \;
+
+echo "Checked $MONITOR_DIR for large files."
+```
+
+
+11.**************************************
+#!/bin/bash
+
+echo "enter your name"
+read name
+
+if [ "$name" = "Alice" ]; then
+echo "Hello Alice"
+
+if [ "$name" = "Robert" ]; then
+echo "Hello Robert"
+
+else 
+echo "Hello unknow"
+
+fi
+
+
+12. *************************************
+Check is a file exists
+
+#!/bin/bash
+
+echo "Enter filename"
+read file
+
+if [ -e "$file" ]; then
+echo "file exists"
+
+else
+echo "file does not exist"
+
+fi
+
+
+13. ************************************
+Backup cronjob
+
+!#/bin/bash
+
+BACKUP_DIR="path/to/directory"
+SOURCE_DIR="path/to/directory"
+DATE=$(date %Y %m %d)
+
+tar -czf "$BACKUP_DIR/backup-$DATE.tar.gz" "SOURCE_DIR"
+
+echo"backup created"
+
+chmod +x backup.sh
+crontab -e
+add code "0 0 * * * /path/to/backup.sh"
+
+

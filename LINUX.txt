@@ -89,6 +89,18 @@ To create softlink/shortcut
 -ln -s file1 softfile1
 -ln file2 backupfile2 to create hardlink
 
+
+FILES IN LINUX
+root: top directory
+bin: contains commands used by all users
+sbin: contains commands used by system admin
+dev: contains hardware device files 
+var: contains variable files such as log files
+boot: bootloader files
+mnt: mount directory to mount a file system temporarily
+media: removable media devices
+usr: apps and files used by user	
+
 DEVOPS LINUX COMMANDS
 1. ls: List directory contents 🖱
 2. cd: Change directory 🛞
@@ -165,3 +177,8 @@ NETWORKING COMMANDS
 
 1. Ping: It is a primary tool for diagnosing network connectivity issues and check if a remote host is online. It tests network connectivity, measures latency and troubleshoots network
 2. Netstat: It is used to view active connections, monitor network interface statistics, checking listening ports, displaying routing tables and identifying open sockets.
+3. ifconfig: The ifconfig (interface configuration) command in Linux is used to configure, manage, and retrieve information about network interfaces. It is largely replaced by the ip command
+4. traceroute vs tracepath: Traceroute command is used to map the route data packets take to a destination, providing detailed information about each hop. Tracepath is a similar command but does not require any superuser privileges. Traceroute is used for detailed analysis.
+5. mtr: It is a powerful diagnostic tool that combines the functionalities of ping and traceroute. It gives a real time analysis about the ip adress and % of packets lost on each hop
+6. nslookup- It is a tool used for querying DNS to obtain information about doamin names, ip addresses and other dns records like resolve domain names to ip address and vice versa
+7. Telnet- It is a command used to connect to remote servers and systems over the telnet protocol. It is used to test network connectivity, troubleshoot services and for remote adminnistration. 

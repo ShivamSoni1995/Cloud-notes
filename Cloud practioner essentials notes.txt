@@ -1,4 +1,6 @@
-Availability Zone(AZ) is a part of AWS Global infra that has one or more discrete data centres that have redundant power networking and connectivity 
+Region: It is a geographically separated area in which AWS provides service. A region has multiple AZ's
+Availability Zone(AZ): It is a part of AWS Global infra that has one or more discrete data centers that have redundant power networking and connectivity. A region has atleast 2 AZ's
+Edge location: They are data centres designed for caching content closer to users
 
 The AWS Well-Architected Framework describes key concepts, design principles, and architectural best practices for designing and running workloads in the cloud
 -Operational excellence: running and monitoring systems and continually improving processes and procedures
@@ -23,19 +25,49 @@ Types of EC-2 instances
 -Storage optimized- high performance for locally stored data
 
 Pricing
--On demand:
--Standard reserve: good fit of you know the instance type, size and the AWS region.
--Convertible reserve: If you need to run instances in different AWS regions or different instance types
--EC2 Instance savings plan: It gives you discount when you make an hourly spend commitment to an instance family and region for a 1 year or 3 year plan.
--Spot instances: ideal for workloads with flexible start and end time and which can withstand interruptions
--Dedicated: physical servers with EC2 instance capacity fully dedicated to your use.
+-On demand: Pay for the instances that you use by the second, with a minimum of 60 seconds. Ideal for short-term and uninterrupted workloads.
+-Reserved Instances: Ideal for steady-state usage applications		
+1.Standard reserve: good fit of you know the instance type, size and the AWS region. You can reduce the costs by making a commitment to a consistent amount of usage, in USD per hour for a term of 1 or 3 years.
+2.Convertible reserve: If you need to run instances in different AWS regions or different instance types
+
+-EC2 Instance savings plan: It gives you discount when you make an hourly spend commitment to an instance family for a 1 year or 3 year plan. It is locked to a specific instance family and region
+-Spot instances: ideal for workloads with flexible start and end time and which can withstand interruptions. It requests for unused instances. Ideal for workloads that are resilient to failure. Most cost efficient
+-Dedicated Hosts: physical servers with EC2 instance capacity fully dedicated to your use. Most expensive
+-Dedicated instance that has a shared hardware
+-Capacity reservation- reserves an instance in specific AZ but you pay whether the instance is running or not.
+
+How to decided which instance is suitable for your workload
+1. On demand-use anytime you want, pay full price
+2. Reserved- Planning ahead the usage and you may get good discount
+3. Savings- Pay per hour for certain period and use
+4. Spot instances- works by bidding, instance will be lost if the instance price goes above your bid price.
+5. Dedicated host- book entire servers
+6. Capacity reservation- book instances with full price even if you dont use
+
 
 Scaling
 EC2 autoscaling automatically runs up and decommissions instances as per the demand.
 You can specify the min, desired and max capacity
 
+Key components of Auto scaling
+1. Autoscaling group
+2. Launch template
+3. Scaling policies (predictive, dynamic and scheduled scaling)
+4. CloudWatch alarms
+
 Elastic Load Balancing
-- is the AWS service that automatically distributes incoming application traffic across multiple resources, such as Amazon EC2 instances. 
+-It is an AWS service that automatically distributes incoming application traffic across multiple resources, such as Amazon EC2 instances. 
+Types of ELB
+-Application
+-Network 
+-Gateway
+-Classic
+
+Key Components of a Load Balancer:
+1. Listener
+2. Target Groups
+3. Rules
+4. Availability Zones
 
 Amazon simple notification service
 -for publishing messaged to subscribers
@@ -45,36 +77,26 @@ Amazon simple queue service
 
 AWS Lambda(opens in a new tab) is a service that lets you run code without needing to provision or manage servers. 
 
-
 Amazon Elastic Container Service (Amazon ECS) is a highly scalable, high-performance container management system that enables you to run and scale containerized applications on AWS. It supports Docker.
 
-
 Amazon Elastic Kubernetes Service (Amazon EKS)(opens in a new tab) is a fully managed service that you can use to run Kubernetes on AWS. 
-
 
 AWS Fargate(opens in a new tab) is a serverless compute engine for containers. It works with both Amazon ECS and Amazon EKS. 
 
 AWS Cloudfront is a content delivery network(CDN). It speeds up the distribution of content of web pages by caching content of the data in data centres(edge locations) accross the world. CloudFront is commonly used to improve the performance, security, and reliability of web applications, especially for global audiences.
 
-
 Amazon Elastic Beanstalk is a PaaS offered by AWS. It allows developers to deploy their applications without worrying about the underlying infrastructure.
 
 AWS Cloudformation- With AWS CloudFormation, you can treat your infrastructure as code. This means that you can build an environment by writing lines of code instead of using the AWS Management Console to individually provision resources.
 
-Internet Gateway- To allow public traffic from internet to access VPC, you attach an IGW to the VPC
-
-Virtual Private Gateway is used to access private resources of a VPC
-
-Network Access Control Lists(ACL)- It is a virtual firewall that controls inbound and outbound traffic associated with specific IP at subnet level. It is stateless.
-
-SECURITY GROUPS- For additional security EC2 instances have Security Groups. It is stateful
-
-SUBNET
-A subnet is a section of a VPC in which you can group resources based on security or operational needs. Subnets can be public or private. 
-
 Elastic Block Storage(EBS) is a service that provides block level storage volumes that one can use with EC2 instances and it remains available even after the EC2 instance is terminated
 
-AWS S3 is a service that provides object level storage. It stores data as object in buckets. It has unlimited storage and one file can have maximum size of 5TB
+
+
+AWS S3 
+
+It is a service that provides object level storage. It stores data as object in buckets. It has unlimited storage and one file can have maximum size of 5TB
+
 Standard-frequently accessed data stored in min 3 availability zones
 Standard IA-infrequently accessed data but high availability when needed, same as Standard but has lower storage price and higher retrieval price
 One zone IA-stored in one availability zone and has lower storage price than Standard IA
@@ -84,34 +106,74 @@ Glacier flexible retrieval-archived data to be retrieved within few minutes upto
 Glacier deep archive-archived data to be retrieved within upto 12 hours. Has lowest cost for storage
 Outposts-for AWS outpost
 
+
+
 Elastic File System(EFS)- scalable file system used by AWS cloud and on premises resources. It grows and shrinks automatically
 
 EBS vs EFS- EBS stores data in single availability zone while EFS is a regional service and stores data across multiple zones
 
--> DATABASE
-Amazon RDBS- Relational database service which runs of 6 different engines, AWS Aurora, MySQL, Postgre, Maria, Oracle, Microsoft
+-Object, block, file and archive storage
+Object storage is for large amounts of unstructured data like images, videos etc Amazon S3
+Block storage works at block level and is ideal for hosting databases, VM's, app services and other I/O intensive applications Amazon EBS
+File storage is like traditional storage system to manage files and directories Amazon EFS
+Archive to store infrequently accessed data.
 
-Amazon Aurora- It is faster than MySQL and Postgre. Ideal for workloads with high availability, replicates 6 copies across 6 zones and backups data in AWS S3.
+-Amazon Elastic Block Store vs Instance Store.
+EBS is persistent which means it retains data even after instance is stopped while IS is not
+EBS can be attached, de-attached and re-attached to another instance while IS cannot
+EBS supports snapshots allowing backups to amazon S3 while IS does not
+EBS is suitable for database, files while IS is suitable for temporary data
+
+
+Best data security practices for S3
+-Disable ACl
+-Ensure S3 has correct policies and publicly accessible
+-Least privilege access
+-Use IAM Roles for application and services that require S3 access
+-Use S3 Object Lock to prevent accidental deletion
+-Use S3 Cross-Region Replication
+
+
+
+-> DATABASE
+
+
+Amazon RDBS- Relational database service provided by AWS allows us to host DB. It runs of 6 different engines, AWS Aurora, MySQL, Postgre, Maria, Oracle, Microsoft. It uses SQL
+
+Amazon Aurora- It is faster than MySQL and PostgreSQL. Ideal for workloads with high availability, replicates 6 copies across 6 zones and backups data in AWS S3.
 
 Amazon DynamoDB- serverless nonsql database which runs on the concept of key-value
 
 Amazon Redshift- data warehousing tool for big data analytics
 
-AWS Data Migration Service(DMS)-allows migration of relational, non relational and other types of data stores.
-DB Migration can be of two types, homogeneous where the source and target databases are of same types and heterogeneous where the source and target databases are of different types where first it needs to be converted through Amazon Schema conversion tool.
+
+
 
 -> SECURITY
+
+
 
 Shares responsibility model- AWS environment is a collection of parts, AWS is responsible for the security of some parts and the User is responsible for some. Customer is responsible for security in cloud and AWS is responsible for security of cloud.
 
 IAM
 -Allows to create IAM users who by default do not have any permissions. Permissions are to be granted explicitly in the form of IAM policy
 -Certain IAM users can be organized in IAM Groups so common IAM policies can be granted for all.
--Best practise is to create an IAM user and allow it permission to create new IAM users. Root account should be used for limited number of tasks.
+-Best practice is to create an IAM user and allow it permission to create new IAM users. Root account should be used for limited number of tasks.
 -MFA adds an extra layer of security. 
 -IAM Role is the best option is one wants temporary permission.
 -AWS Organization- different departments can be created under organizational units.
 SCP(service control policies) can be applied to individual members and Organizational Units OU.
+
+IAM vs IAM Identity centre
+IAM is used to manage permissions and policies for users, groups and roles within an AWS account while Identity center provides centralized identity and access management across multiple AWS accounts and applications
+IAM manages permissions at account level while IC manages at organization level
+
+AWS IAM Federation-It is a feature of IAM that allows users from external identity system (eg: corporate Active Directory, third party identity providers) to access AWS resources without an IAM user account.
+ 
+Users- You can create a user and give specific access to AWS resources by assigning permission. It is a single identity
+Groups- It is a collection of users. Permissions assigned to a group apply to all users within it
+Roles- It is an identity temporarily assumed by trusted entities. It is used to grant temporary permissions and does not have long-term credentials
+Policies-They define permissions using JSON documents
 
 AWS Artifact allows to access AWS compliance reports on demand and review, accept and manage agreements with AWS.	
 
@@ -159,6 +221,9 @@ AWS CAF(Cloud Adoption Framework)
 AWS Data Migration Service
 
 AWS MGN(App migration service) is an automated lift-and-shift solution. This solution can migrate physical servers and any databases or applications that run on them to EC2 instances in AWS.
+
+AWS Data Migration Service(DMS)-allows migration of relational, non relational and other types of data stores.
+DB Migration can be of two types, homogeneous where the source and target databases are of same types and heterogeneous where the source and target databases are of different types where first it needs to be converted through Amazon Schema conversion tool.
 
 Migration strategies has 6 R's
 Rehosting- moving applications without any changes

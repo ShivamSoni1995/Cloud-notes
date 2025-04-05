@@ -1,5 +1,8 @@
-1. Billing dashboard
-2. Cost management
+Billing and Cost Management
+
+1. Bills: shows breakdown of cost for using services
+2. Free tier: shows data within free tier
+3. Budgets: alerts you when the budget is crossed
 
 
 TOOLS
@@ -8,3 +11,10 @@ TOOLS
 3. AWS Trusted Advisor: It is a tool that provides real time best-practices and recommendations including cost saving advices. It identifies underutilized resources which can be downsized, terminated or optimized. Also gives recommendations for optimizing RI and savings plan 
 4. AWS Saving Plans and Reserved Instances: It offers great discounts on computing resources in exchange for committed used for a fixed period of time
 5. 
+
+
+
+
+
+PROJECT
+*Cost optimization and alerting using AWS Lambda*

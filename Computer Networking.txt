@@ -1,3 +1,10 @@
+INTERNET and WEB SERVER
+-Nginx is an open source web server often used as reverse proxy, load balancer and HTTP cache
+-Web server is a computer that hosts and delivers web pages to users over HTTP/HTTPS
+-Reverse proxy is a server that sits in front of one or more web servers, intercepting client requests and forwarding them to the appropriate backend server, enhancing security, performance, and reliability. It increases security, enhances performance and improves reliability by load balancing.
+
+
+
 SWITCH
 -It facilitates the communication between host in the same network
 -It is an L2 device hence focuses on only the L2 header which consists of the MAC address
@@ -58,9 +65,9 @@ Subnetting- It involves dividing the VPC's IP address into smaller, more managea
 -Subnet mask: is a 32-bit number that is used in conjunction with an IP address to divide a network into subnetworks (subnets). It helps determine which portion of the IP address refers to the network and which portion refers to the host (the individual device within that network).
 IP Address Structure: An IP address is made up of four octets (or bytes), each containing 8 bits, totaling 32 bits (e.g., 192.168.1.10).
 Subnet Mask Structure: Like an IP address, a subnet mask is also made up of four octets (e.g., 255.255.255.0).
-The 1 bits in the subnet mask correspond to the newtowk portion of the IP address i.e: 192.168.1 is the network, 10 is the host
+The 1 bits in the subnet mask correspond to the network portion of the IP address i.e: in 192.168.1.0 , 192.168.10 is the network, 10 is the host
 
-CIDR notation- It determines the number of 1 in the subnet mask. 255.255.255.0 has 24 '1s', hence the IP address can ber written as 192.168.1.10/24
+CIDR notation- It determines the number of 1 in the subnet mask. 255.255.255.0 has 24 '1s', hence the IP address can be written as 192.168.1.10/24
 
 PUBLIC VS PRIVATE SUBNET
 It can also be divided into public subnet and private subnet
@@ -97,6 +104,19 @@ VPC Endpoints in AWS allow you to privately connect your Virtual Private Cloud (
 -VPC Endpoint(Gateway): Gateway Endpoints provide private access to certain AWS services by adding an entry to your VPC route table, allowing traffic to be routed to the service through a gateway endpoint. Supportted services are S3 and DynamoDB
 -VPC Endpoint(Interface): Interface Endpoints create an Elastic Network Interface (ENI) in a specific VPC subnet, allowing you to access many AWS services (not limited to S3 or DynamoDB) privately via private IP addresses
 
+Internet Gateway- To allow public traffic from internet to access VPC, you attach an IGW to the VPC
+
+Virtual Private Gateway is used to access private resources of a VPC
+
+Network Access Control Lists(ACL)- It is a virtual firewall that controls inbound and outbound traffic associated with specific IP at subnet level. It is stateless.
+
+SECURITY GROUPS- For additional security EC2 instances have Security Groups. It is stateful
+
+SUBNET
+A subnet is a section of a VPC in which you can group resources based on security or operational needs. Subnets can be public or private. 
+
+
+
 
 Interview Questions
 
@@ -104,7 +124,7 @@ Core Networking Concepts
 
 1. Basics of Networking  
 Q.1a What is an IP address, and what is the difference between IPv4 and IPv6?
-ipv4 is 32 bit with dotted decimal format and four segments while ipv6 is 128 bit hexadecimal format separated by colon with 8 segments. ipv6 provides more unique ip addresses and had added security and also add routing efficiency
+ipv4 is 32 bit with dotted decimal format and four segments while ipv6 is 128 bit hexadecimal format separated by colon with 8 segments. ipv6 provides more unique ip addresses and has added security and also adds routing efficiency
 
 Q.1b Explain the OSI model and its layers.
 The Open System Interconnection model is a conceptual framework that conceptualizes the functioning of a telecom or network system in 7 distinct layers
@@ -118,7 +138,7 @@ g. Application- Acts as interface between user and network eg: http, dns
 
 Q. 1c How do TCP and UDP differ, and when would you use each?
 They are the two primary protocols used for transporting data over network. Both operate at Transport Layer 4 of the OSI model
-TCP(Transmission Control Protocol)-used for highly reliable and accurate applications where minor delays are acceptable eg: webpages http/https, email SMTP, remote sessions
+TCP(Transmission Control Protocol)-used for highly reliable and accurate applications where minor delays are acceptable. It requires handshake before transmitting. eg: webpages http/https, email SMTP, remote sessions. 
 UDP(User datagram protocol)-used where speed and efficiency are prioritized over reliability eg: streaming services, online gaming
 
 2. Subnets and CIDR  
@@ -238,8 +258,25 @@ Warm Standby
 Multi-region active-active
 
 2. Troubleshooting Scenarios  
-An EC2 instance in a private subnet needs to access the internet. How would you configure this setup?
-Traffic is not reaching your application hosted on EC2 through an Application Load Balancer. Walk me through your troubleshooting steps.
+Q. 2A An EC2 instance in a private subnet needs to access the internet. How would you configure this setup?
+
+Q. 2B Traffic is not reaching your application hosted on EC2 through an Application Load Balancer. Walk me through your troubleshooting steps.
+1. Check ALB Status
+-check ALB DNS, Target group, Listener rules and Health checks for target group
+2. Check EC2 Status
+3. Check Security Groups
+-ALB and EC2 security group
+
+Q. 2C Troubleshoot Autoscaling
+1. Instances are not launching
+-Check IAM role
+-verify launch template
+-quota limits
+
+2. Scaling actions are not triggering
+-check CloudWatch alarms
+-scaling policies
+
 
  General Cloud Knowledge
 1. AWS Global Infrastructure  

@@ -29,7 +29,28 @@ Configures the cloud provider and backend for remote state storage, which tracks
 Defines output values making it easy to retrieve information like IP address or resource IDs
 
 5. dev.tfvars
-Environment specific variables
+
+->Providers:
+In Terraform, providers are plugins that allow Terraform to interact with different cloud platforms, SaaS providers, and APIs. They serve as the bridge between Terraform and the services you want to provision and manage.
+They are customizable, can manage various infrastructure with consistent syntax and support multiple plugins
+provider "aws" {
+  region = "us-east-1"
+}
+
+->Resources:
+A resource is the most basic building block in Terraform. It represents a single infrastructure component, such as an EC2 instance, S3 bucket, VPC, or database.They are best for small and simple configurations
+resource "<provider>_<type>" "<name>" {
+  # Configuration for the resource
+  key = "value"
+}
+
+->Modules:
+A module is a container for multiple resources that are grouped together. It helps organize and reuse configurations, promoting modularity and scalability. Useful for large, complex or reusable infrastructure.
+
+->State files:
+The state file in Terraform is a critical component that records the current state of your infrastructure. It serves as a snapshot of the resources Terraform manages and allows Terraform to track changes between your configurations and the actual infrastructure.
+It is stored in terraform.tfstate and enables terraform to determine difference between your configuration and actual infrastructure
+
 
 Basic Resource Types
 1. S3
@@ -44,3 +65,34 @@ resource "aws_security_group_rule" "name" {
   
 4. EC2
 5. Elastic IP
+
+
+Interview Questions:
+1. What is Terraform and how does it work?
+It allows you to define and provision infrastructure using Hashicorp Configuration Language
+Terraform interacts with cloud providers using plugins called providers\
+Terraform maintains the current state of your infra in a state file
+
+
+
+2. How do you ensure state file security?
+Use remote backend storage like cloud
+Enable encryption for remote backend
+Restrict access to state file using IAM
+Use workspace for segregation
+Avoid committing to state files to version control
+
+3. Explain how you manage multiple environments with Terraform.
+Create separate workspaces using command "terraform workspace new dev" and "terraform workspace select dev"
+Use directory structure to organize configuration files for different enviornments
+Use variables 
+Use separate remote backends for each environment
+
+4. Describe the Terraform workflow from initialization to destruction
+Writing Configuration using HCL
+Initialize working directory: Initializes terraform environment, downloads provider plugins and sets up backend
+Validate configuration
+Plan changes
+Apply changes
+Destroy resources
+
