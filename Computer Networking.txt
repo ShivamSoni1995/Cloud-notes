@@ -8,7 +8,7 @@ INTERNET and WEB SERVER
 SWITCH
 -It facilitates the communication between host in the same network
 -It is an L2 device hence focuses on only the L2 header which consists of the MAC address
--They use and maintain MAC address table which has the switch ports connected with diffrent hosts MAC
+-They use and maintain MAC address table which has the switch ports connected with different hosts MAC
 -They perform 3 action, learn, flood and forward
 -Learn-It updates table with switch port and source MAC address
 -Flood- It duplicates data frame and sends it out of all ports and only the recipient host will accept the data as it corresponds with the correct MAC address
@@ -18,12 +18,12 @@ SWITCH
 
 Broadcast frame vs unicast frame. 
 -Broadcast frames are always flooded and are not initiated by the switch
--Unicast frames are ocassionally flooded by the switch when the source MAC address in not available in the MAC table
+-Unicast frames are occasionally flooded by the switch when the source MAC address in not available in the MAC table
 
 VLAN-virtual local area network
 -It divides the switch in independent isolated groups
 -It allows switch to perform learn, flood and forward functions in isolated vlans
--Same learn, flood and forward operations will be performed when data passess through multiple switches
+-Same learn, flood and forward operations will be performed when data passes through multiple switches
 
 
 
@@ -65,7 +65,7 @@ Subnetting- It involves dividing the VPC's IP address into smaller, more managea
 -Subnet mask: is a 32-bit number that is used in conjunction with an IP address to divide a network into subnetworks (subnets). It helps determine which portion of the IP address refers to the network and which portion refers to the host (the individual device within that network).
 IP Address Structure: An IP address is made up of four octets (or bytes), each containing 8 bits, totaling 32 bits (e.g., 192.168.1.10).
 Subnet Mask Structure: Like an IP address, a subnet mask is also made up of four octets (e.g., 255.255.255.0).
-The 1 bits in the subnet mask correspond to the network portion of the IP address i.e: in 192.168.1.0 , 192.168.10 is the network, 10 is the host
+The 1 bits in the subnet mask correspond to the network portion of the IP address i.e: in 192.168.1.10 , 192.168.1 is the network, 10 is the host
 
 CIDR notation- It determines the number of 1 in the subnet mask. 255.255.255.0 has 24 '1s', hence the IP address can be written as 192.168.1.10/24
 
@@ -151,6 +151,7 @@ Efficient IP address management
 eg: public subnet for webpage and private subnet for database servers
 
 Q. 2b Explain CIDR notation. How would you calculate the range of IPs in a given CIDR block?
+-CIDR notation is a way to represent an IP address and its associated network mask compactly, using a slash (/) followed by a number. The number indicates how many bits of the IP address are used for the network portion. For example, 192.168.1.0/24 means the first 24 bits are for the network address, leaving the remaining 8 bits for host addresses
 
 Q. 2c How would you design subnets for a highly available application across multiple availability zones?
 Minimum two availability zones are required for a highly available application. 
@@ -203,20 +204,30 @@ TCP 80 http from all or or restrict to specific ip's
 TCP 443 https from all or restrict to specific ip's
 
 Q. 2c How do you prioritize rules in security groups versus network ACLs?
+In AWS, security groups and network ACLs prioritize rules differently. Security groups evaluate all rules associated with an instance before deciding whether to allow traffic, while network ACLs evaluate rules in order, starting with the lowest numbered rule. Lower-numbered ACL rules have higher priority
 
 3. VPC Peering and Transit Gateway  
 What is VPC peering, and when would you use it?
 How does Transit Gateway differ from VPC peering, and what are the benefits of using it?
+
+-VPC peering and Transit Gateway are both AWS networking solutions for connecting VPCs, but they serve different purposes and scales. VPC peering connects two VPCs directly, suitable for smaller, simpler networks. Transit Gateway provides a centralized hub for connecting many VPCs, regions, and on-premises networks, ideal for large, complex architectures.
+Transit Gateway provides centralized management, scalability, cost effectiveness and transitive routing
 
 4. Elastic Load Balancing (ELB)  
 What is the purpose of an Elastic Load Balancer in AWS?
 How does ELB distribute traffic across multiple instances?
 Explain the differences between Application Load Balancer, Network Load Balancer, and Classic Load Balancer.
 
+
+-Application LB: Designed for http/https traffic and ideal for modern web apps
+Network LB: Designed for TCP/UDP traffic and ideal for apps that require direct ip-level routing
+
 5. Direct Connect and VPN  
 What are the differences between AWS Direct Connect and a Site-to-Site VPN?
 When would you choose Direct Connect over VPN?
 How would you set up a Site-to-Site VPN connection to AWS?
+
+-AWS Direct Connect and Site-to-Site VPN are both ways to connect your on-premises network to your AWS Virtual Private Cloud (VPC), but they differ significantly in terms of connection type, performance, and security. Direct Connect provides a dedicated, private connection, while Site-to-Site VPN uses the public internet and IPsec encryption. Direct Connect is generally preferred for high-bandwidth, low-latency, and more secure connections, while VPN is suitable for cost-effective, easy-to-set-up connections, especially for smaller workloads or when the public internet is acceptable
 
 6. Route 53  
 What is Amazon Route 53, and how does it manage DNS?
@@ -232,6 +243,11 @@ How do you set up CloudWatch alarms for network metrics like traffic and latency
 How would you troubleshoot an EC2 instance that’s unable to connect to the internet?
 Explain how you would diagnose latency issues in a VPC peering connection.
 What steps would you take if traffic isn’t reaching your application behind an ELB?
+-verify security groups and listener rules
+-check ELB health checks
+-check target group configuration
+-check instance status
+-examine ELB and instance logs
 
 3. AWS VPC Flow Logs  
 What are VPC Flow Logs, and how do they help in troubleshooting?
@@ -241,6 +257,7 @@ How would you configure VPC Flow Logs for a specific subnet?
 1. IAM and Network Security  
 How would you secure access to your VPC resources?
 Explain how you would restrict users to access specific networking resources within AWS.
+-implement iam policies and security groups for network traffic control
 
 2. Security Groups Best Practices  
 What are some best practices for setting up security groups?
@@ -259,6 +276,7 @@ Multi-region active-active
 
 2. Troubleshooting Scenarios  
 Q. 2A An EC2 instance in a private subnet needs to access the internet. How would you configure this setup?
+-setups NAT gateway in public subnet, add a route in private route table with destination as all and target as NAT gateway. add a route in public route table with destination as all and target as internet gateway.
 
 Q. 2B Traffic is not reaching your application hosted on EC2 through an Application Load Balancer. Walk me through your troubleshooting steps.
 1. Check ALB Status
@@ -282,6 +300,10 @@ Q. 2C Troubleshoot Autoscaling
 1. AWS Global Infrastructure  
 Explain AWS regions and availability zones. How do they relate to each other?
 What is an edge location, and how does AWS use it?
+
+-A region is a separate geographical region with multiple AZ's
+-AZ's are individual data centres or cluster of data centres within a region
+-An Edge location is a point of presence in AWS global infrastructure and is used by services like AWS CloudFront to deliver content with low latency
 
 2. Cost Optimization  
 How would you optimize costs for an application that requires a high amount of inbound traffic?
