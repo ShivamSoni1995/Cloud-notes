@@ -99,7 +99,19 @@ var: contains variable files such as log files
 boot: bootloader files
 mnt: mount directory to mount a file system temporarily
 media: removable media devices
-usr: apps and files used by user	
+usr: apps and files used by user
+
+PERMISSIONS IN LINUX
+1. r-read, w-write, x-execute
+eg: rw-r--r–, rw is for user, r-- is for group, r-- execute
+
+2. read-4, write-2, execute-1	
+eg: 755, rwx for user, rx for group, rx for others
+
+
+SERVICES IN LINUX
+1. Systemd: Systemd is the first process that runs when the computer boots up (PID 1). It initializes the system and then starts other processes. 
+
 
 DEVOPS LINUX COMMANDS
 1. ls: List directory contents 🖱
@@ -139,7 +151,7 @@ DEVOPS LINUX COMMANDS
 35. ping: Test network connectivity 🪅
 36. netstat: Network statistics 🪆
 37. iptables: Firewall administration ☹️
-38. systemctl: Manage system services ✌️
+38. systemctl: list and manage system services ✌️
 39. journalctl: Query the system journal 📀
 40. crontab: Schedule cron jobs 🗓
 41. useradd: Create a user account 🅰️

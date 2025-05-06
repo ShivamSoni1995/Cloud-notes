@@ -94,14 +94,14 @@ There are two primary ways to establish such connections:
 -Site-to-Site VPN: Secure, encrypted connection over the internet.
 -AWS Direct Connect: Dedicated physical connection providing higher bandwidth and lower latency than a VPN.
 
-VPS PEERING
+VPC PEERING
 It is a networking connection between two Virtual Private Clouds (VPCs) that enables communication between them as if they were part of the same network. This connection allows the VPCs to exchange traffic using private IP addresses, without going through the public internet or VPN, making it secure and cost-effective.
 
 AWS Transit Gateway is a highly scalable and central network hub service that connects multiple VPCs, on-premises networks, and even other AWS accounts. It simplifies network management by acting as a central router that enables transitive routing between your VPCs and on-premises environments without requiring multiple VPC peering connections.
 
 
 VPC Endpoints in AWS allow you to privately connect your Virtual Private Cloud (VPC) to supported AWS services and VPC endpoint services without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect. There are two types
--VPC Endpoint(Gateway): Gateway Endpoints provide private access to certain AWS services by adding an entry to your VPC route table, allowing traffic to be routed to the service through a gateway endpoint. Supportted services are S3 and DynamoDB
+-VPC Endpoint(Gateway): Gateway Endpoints provide private access to certain AWS services by adding an entry to your VPC route table, allowing traffic to be routed to the service through a gateway endpoint. Supported services are S3 and DynamoDB
 -VPC Endpoint(Interface): Interface Endpoints create an Elastic Network Interface (ENI) in a specific VPC subnet, allowing you to access many AWS services (not limited to S3 or DynamoDB) privately via private IP addresses
 
 Internet Gateway- To allow public traffic from internet to access VPC, you attach an IGW to the VPC
@@ -115,7 +115,8 @@ SECURITY GROUPS- For additional security EC2 instances have Security Groups. It 
 SUBNET
 A subnet is a section of a VPC in which you can group resources based on security or operational needs. Subnets can be public or private. 
 
-
+SITE-TO-SITE VPN
+It connect on-premises network with VPC in cloud.
 
 
 Interview Questions
@@ -152,6 +153,15 @@ eg: public subnet for webpage and private subnet for database servers
 
 Q. 2b Explain CIDR notation. How would you calculate the range of IPs in a given CIDR block?
 
+CIDR: CIDR notation is a way to represent an IP address and its associated network mask in a concise format using a slash. eg: 192.	
+The total number of IP addresses in a CIDR block can be calculated as 2^(32 - prefix length). eg: /24 will have 2^(32-24)=2^8=256 ip addresses
+The first IP address is reserved for network and the last for broadcast.
+
+In summary: To calculate the IP range, you need to identify the network address (the base IP), the broadcast address (the highest IP in the range), and the total number of IP addresses based on the CIDR prefix. 
+
+
+
+
 Q. 2c How would you design subnets for a highly available application across multiple availability zones?
 Minimum two availability zones are required for a highly available application. 
 Public and private subnets in both the AZ1 and AZ2.
@@ -163,7 +173,7 @@ Configure security group and ACL
 
 AWS Networking Services
 
-
+xx
 1. VPC (Virtual Private Cloud)  
 
 Q. 1a What is a VPC, and why is it essential in AWS?
