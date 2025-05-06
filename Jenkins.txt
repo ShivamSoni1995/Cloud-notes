@@ -1,5 +1,0 @@
-Continuous Integration and Continuous Delivery/Deployment
--To give a simple analogous CI is packaging a gift and building it while CD means delivering it to the source
-
-Continuous delivery vs Continuous deployment
--Delivery is not a fully automated process, when the code is ready to be delivered manual intervention is required to push the code while Deployment is a completely automated process and required no intervention

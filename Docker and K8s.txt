@@ -1,0 +1,85 @@
+DOCKER
+
+Dockerfile: It is a file containing instructions used to build a Docker image using the "Docker Build" command
+
+Docker Run: It is a command used to create containers from Docker image
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+KUBERNETES
+
+1. Control Plane/Master
+
+2. Data Plane/Worker:
+- Container Runtime
+- Kubeproxy
+- Kubelet
+
+
+-> Deployment Manifest: It manages and scales a set of identical pods ensuring that your application remains available and can be updated or rolled back.
+It usually contains the following items
+- name of deployment object
+- number of pods/replicas
+- labels applied to pods
+- name of the container
+- name of the images to be pulled
+- imagePullPolicy
+- ports
+
+-> Typical Deployment YAML file
+1. apiVersion: Kubernetes API version
+2. kind: kind of resource eg: deployment, service
+3. metadata: provides metadata for deployment eg: names, labels
+4. spec: it will have 
+
+-> Service Manifest: Provides a stable IP address and DNS name for accessing your application
+It generally contains
+- Type of service (nodeport, clusterip, loadbalancer)
+- label of the pods from deployment manifests
+- ports
+
+
+
+* Image pull policy: It determines whether kubelet pulls image from registry. There are 3 main options
+1. Always: Will always pull image from registry. These ensures that containers always run latest version of image
+2. IfNotPresent: Will only pull image from registry if does not exist locally
+3. Never: Never pulls image 
+
+* Deployment object: It is a high level abstraction used to manage and scale identical pods, essentially orchestrating the lifecycle of pods
+
+* Types of services:
+1. ClusterIP: Default service if nothing specified, assigns IP address within cluster making the service accessible only from within the cluster
+2. Nodeport: Exposes service on specific port on each nodes IP address. Easier than load balancer
+3. Load balancer: uses external load balancer from cloud provider
+
+
+Commands:
+- kubectl apply -f deployment/service.yaml
+- kubectl get services/deployments/pods
+- kubectl delete deployment <app-name> or kubectl delete -f <filename.yaml>
+
+PROJECTS
+
+1. Simple static web hosting on Docker and Kubernetes

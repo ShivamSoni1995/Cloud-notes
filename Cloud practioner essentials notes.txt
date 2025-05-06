@@ -64,7 +64,7 @@ Types of ELB
 -Classic
 
 Key Components of a Load Balancer:
-1. Listener
+1. Listeners and Security group: Listeners listen for traffic specified ports while security group act as firewall.
 2. Target Groups
 3. Rules
 4. Availability Zones
