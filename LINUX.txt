@@ -110,8 +110,16 @@ eg: 755, rwx for user, rx for group, rx for others
 
 
 SERVICES IN LINUX
-1. Systemd: Systemd is the first process that runs when the computer boots up (PID 1). It initializes the system and then starts other processes. 
+1. Systemd: Systemd is the first process that runs when the computer boots up (PID 1). It initializes the system and then starts other processes. It is responsible for managing other services and processes.
 
+2. syslog for logging
+3. cron and at for scheduling tasks to run at specific times
+4. Networking has DNS, DHCP and NFS
+5. systemctl is a command to list all running services (systemctl --type=service --state=running)
+
+PROCESSES IN LINUX
+1. ps aux and ps -ef to list current processes
+2. top and htop gives real time interactive view of processes
 
 DEVOPS LINUX COMMANDS
 1. ls: List directory contents 🖱
@@ -149,7 +157,7 @@ DEVOPS LINUX COMMANDS
 33. uname: Print system information ⛔️
 34. ifconfig: Configure network interfaces 🤹
 35. ping: Test network connectivity 🪅
-36. netstat: Network statistics 🪆
+36. netstat: Network statistics 🪆(netstat -ltup | grep 'service or process name') to get port number
 37. iptables: Firewall administration ☹️
 38. systemctl: list and manage system services ✌️
 39. journalctl: Query the system journal 📀
